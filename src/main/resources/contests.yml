@@ -1,0 +1,203 @@
+contests:
+  cobble:
+    chance: 100  # % chance to be selected at top of hour
+    stat_type: MINE_BLOCK
+    stat_key: COBBLESTONE  # For BLOCK/ITEM stats; use entity name for ENTITY (e.g., COW for KILLED)
+    duration_minutes: 20
+    warning_minutes: 5
+    countdown_interval_minutes: 1
+    area:
+      world: world
+      min_x: -300
+      max_x: 300
+      min_y: 61
+      max_y: 256
+      min_z: -300
+      max_z: 300
+    messages:
+      pre_start: "The {contest_name} contest will start in {warning_minutes} minutes!"
+      start_broadcast: "The {contest_name} contest has begun! See /contest info {contest_name} for more."
+      phantom_announce: "Last {contest_name} contest {old_total} cobble was mined, if at least 1000 is mined AND > {double_threshold} (double last), phantoms will be disabled!"
+      join: "You are now participating in {contest_name} contest!"
+      already_in: "You are already in the {contest_name} contest. Cobble Mined: {current_score}"
+      leave: "You left the {contest_name} contest. Cobble mined: {final_score}"
+      left_area: "&cYou've left the contest area with {final_score} cobble, your score is saved. Return to X/Z -300 to 300, and above Y level 60 at spawn to rejoin the contest and increase your score!"
+      countdown: "&6[{contest_name_upper} CONTEST] There are {minutes_left} minutes left!"
+      countdown_singular: "&6[{contest_name_upper} CONTEST] There is 1 minute left!"
+      current_score: "KEEP GOING, you've mined: {current_score} cobble"
+      invalid_area: "You must be in the contest area: {tracked_item} between X/Z -300 to 300, Y >60 in overworld."
+      total_broadcast: "Total {tracked_item} mined was {total}"
+      single_winner: "The winner is {winner_name} with {high_score} cobble mined!"
+      tie: "There is a tie! {winners_count} players mined {high_score} cobble! Prize is somewhere at spawn, better be quick!"
+      no_winners: "No one participated. Phantoms remain enabled."
+      condition_check: "Checking if conditions were met to disable phantoms."
+      met: "Conditions met ({total} >=1000 and >{double_threshold}) - disabling phantoms!"
+      not_met: "Conditions were not met ({total} <1000 or <= {double_threshold}) - phantoms remain enabled."
+    reward_conditions:
+      min_total: 1000
+      double_previous: true
+      on_met_commands:
+        - "gamerule doInsomnia false"
+      on_not_met_commands:
+        - "gamerule doInsomnia true"
+    prizes:
+      winner_item:
+        material: STONE_PICKAXE
+        name: "&bWilders Lucky Pickaxe"
+        lore:
+          - "&5This prize of the mining contest is almost"
+          - "&5useless compared to pickaxe of a hardier"
+          - "&5variety, but no other pickaxe will give you as"
+          - "&5much coal in your stocking."
+        enchants:
+          EFFICIENCY: 5
+          FORTUNE: 4
+          MENDING: 1
+          UNBREAKING: 6
+        attributes: []
+      tie_chest_location: "world 0 125 0"  # world x y z
+    scoreboard:
+      objective: COBBLE
+      display_name: "Cobble Contest"
+      team_name: acontest
+      team_color: DARK_AQUA
+    upgrade_command: tradepick  # Custom command: /contest tradepick
+    upgrades:
+      tier1:
+        check_lore: "prize of the mining contest"
+        required: 10
+        give:
+          material: IRON_PICKAXE
+          name: "&bClouds Pickaxe of Impatience"
+          lore:
+            - "&5Some people always have to be the"
+            - "&5first to do a thing. In the wise"
+            - "&5words of Ricky Bobby, if youre"
+            - "&5not first youre last. This"
+            - "&5pickaxe is good, maybe too good,"
+            - "&5but there is an even better one"
+            - "&5to be had if you collect ten."
+          enchants:
+            EFFICIENCY: 6
+            FORTUNE: 5
+            MENDING: 1
+            UNBREAKING: 7
+          attributes: []
+      tier2:
+        check_lore: "Ricky Bobby"
+        required: 10
+        give:
+          material: GOLDEN_PICKAXE
+          name: "&bPigeon's Pointless Pick of Pessimistic Pecking"
+          lore:
+            - "&5Nature's first green is gold,"
+            - "&5Her hardest hue to hold."
+            - "&5Her early leaf's a flower;"
+            - "&5But only so an hour."
+            - "&5Then leaf subsides to leaf."
+            - "&5So Eden sank to grief,"
+            - "&5So dawn goes down to day."
+            - "&5Nothing gold can stay."
+          enchants:
+            EFFICIENCY: 10
+            FORTUNE: 10
+          attributes: []
+      tier3:
+        check_lore: "Eden sank"
+        required: 10
+        give:
+          material: DIAMOND_PICKAXE
+          name: "&bTelestos Pickaxe of Trepidation"
+          lore:
+            - "&5Vestiges of the Queen's Harbingers"
+            - "&o&5yet linger among Saturn's moons."
+            - ""
+            - "&5PUBLIC KEY 053 689 DWS REGAL"
+            - "&5FROM: PLDN KAMALA RIOR [PLDN CMD TF5.3]"
+            - "&5TO: ACT RGNT PETRA VENJ"
+            - "&5SUBJECT: PRISON OF ELDERS"
+            - ""
+            - "&5CONTAINMENT RISK"
+            - ""
+            - "&5MESSAGE IS:"
+            - ""
+            - "&51. Contingency reserves overdrawn."
+            - "&5We underestimated nobility troth"
+            - "&5reparations. Uldren suggests that"
+            - "&5we open reintegration talks. Have"
+            - "&5you discussed endowment support?"
+            - ""
+            - "&52. If Reef endorses support,"
+            - "&5Paladin Oran will engineer"
+            - "&5reinforcement."
+            - ""
+            - "&5MESSAGE ENDS"
+          enchants:
+            EFFICIENCY: 6
+            FORTUNE: 5
+            UNBREAKING: 7
+          attributes:
+            - type: GENERIC_ATTACK_DAMAGE
+              amount: 5
+              slot: hand
+              operation: ADD_NUMBER
+              id: "telestos_attack_damage"
+  # Example new contest
+  feed_cows:
+    chance: 0
+    stat_type: USE_ITEM
+    stat_key: WHEAT
+    duration_minutes: 15
+    warning_minutes: 3
+    countdown_interval_minutes: 1
+    area:
+      world: world
+      min_x: -500
+      max_x: 500
+      min_y: 0
+      max_y: 256
+      min_z: -500
+      max_z: 500
+    messages:
+      pre_start: "The {contest_name} contest will start in {warning_minutes} minutes!"
+      start_broadcast: "The {contest_name} contest has begun! Use wheat to feed animals. See /contest info {contest_name} for more."
+      phantom_announce: "Feed those cows!"
+      join: "You are now participating in {contest_name} contest!"
+      already_in: "You are already in. Score: {current_score}"
+      leave: "You left {contest_name} contest. Final score: {final_score}"
+      left_area: "&cYou've left the contest area with a score of {final_score}, your score is saved. Return to X/Z -500 to 500 at spawn to rejoin the contest and increase your score!"
+      countdown: "&6[{contest_name_upper} CONTEST] There are {minutes_left} minutes left!"
+      countdown_singular: "&6[{contest_name_upper} CONTEST] There is 1 minute left!"
+      current_score: "KEEP GOING, your score: {current_score}"
+      invalid_area: "You must be in the area to participate in {contest_name} contest."
+      total_broadcast: "Total {tracked_item} used was {total}"
+      single_winner: "The winner is {winner_name} with {high_score}!"
+      tie: "Tie with {winners_count} players at {high_score}! Prize at spawn."
+      no_winners: "No one participated."
+      condition_check: "Checking if conditions met for special reward."
+      met: "Conditions met ({total} >= 500) - Everyone gets milk!"
+      not_met: "Conditions not met ({total} < 500) - No milk today."
+    reward_conditions:
+      min_total: 500
+      double_previous: false
+      on_met_commands:
+        - "say Everyone gets milk!"
+      on_not_met_commands:
+        - "say No milk today."
+    prizes:
+      winner_item:
+        material: BUCKET
+        name: "&bInfinite Milk Bucket"
+        lore:
+          - "&5For the best cow feeder!"
+        enchants: {}
+        attributes: []
+      tie_chest_location: "world 0 64 0"
+    scoreboard:
+      objective: FEEDCOWS
+      display_name: "Cow Feeding"
+      team_name: feedteam
+      team_color: GREEN
+    upgrade_command: tradebucket  # Custom command: /contest tradebucket (example)
+    upgrades: {}  # Empty for this contest; add tiers as needed
+  # Add more like plant_trees: USE_ITEM OAK_SAPLING, etc.
